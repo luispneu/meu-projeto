@@ -77,12 +77,19 @@ const produtos = [
     imagem: "chutes.jpg",
   },
 ];
+
+function buscarprodutoPorId(id){
+  const produto = produtos.find(produto => produto.id == id);
+  return produto || null
+}
+
 app.get("/", (req, res) => {
   res.render("index",{produtos});
 });
 
-app.get("/produto", (req, res) => {
-  res.render("produto");
+app.get("/produtos/:id", (req, res) => {
+  const produto = buscarprodutoPorId(req.params.id)
+  res.render("produto", { produto } ) 
 });
 
 app.listen(port, () => {
